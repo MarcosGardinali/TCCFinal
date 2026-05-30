@@ -36,10 +36,15 @@ jobs:
             --exclude='.env.local' \
             --exclude='bin' \
             --exclude='obj' \
+            --exclude='**/bin' \
+            --exclude='**/obj' \
             --exclude='.vs' \
             --exclude='.vscode' \
             --exclude='*.user' \
             --exclude='*.suo' \
+            --exclude='*.log' \
+            --exclude='.DS_Store' \
+            --exclude='.idea' \
             --exclude='npm-debug.log*' \
             --exclude='yarn-debug.log*' \
             --exclude='yarn-error.log*' \
@@ -53,8 +58,10 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $SSH_USER@$SERVER_IP \
           "cd $DEPLOY_PATH && \
-          docker compose down && \
-          docker compose up --build -d && \
+          docker compose down --remove-orphans && \
+          docker compose rm -f && \
+          docker compose build --no-cache && \
+          docker compose up --force-recreate -d && \
           echo 'Deploy completed successfully at' && \
           date"
 
