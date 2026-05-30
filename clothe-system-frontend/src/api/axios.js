@@ -1,7 +1,6 @@
 import axios from 'axios'
 
-const defaultHost = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.hostname}:3002` : 'http://localhost:3002'
-const apiBase = (import.meta.env && import.meta.env.VITE_API_URL) ? import.meta.env.VITE_API_URL : defaultHost
+const apiBase = import.meta.env.VITE_API_URL || ''
 
 const axiosInstance = axios.create({
   baseURL: `${apiBase}/api`,
