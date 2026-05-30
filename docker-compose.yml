@@ -1,0 +1,63 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: outfittrack-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+      MYSQL_DATABASE: "outfit_track"
+      MYSQL_PASSWORD: "123456"
+      TZ: "UTC"
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - db_data:/var/lib/mysql
+
+  backend:
+    build:
+      context: ./outfit-track
+      dockerfile: OutfitTrack.Api/Dockerfile
+    container_name: outfittrack-api
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_URLS: "http://+:3002"
+      ConnectionStrings__DataBase: "server=db;database=outfit_track;user=root;password=123456"
+    ports:
+      - "3002:3002"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./clothe-system-frontend
+      dockerfile: Dockerfile
+    container_name: clothe-system-frontend
+    ports:
+      - "5173:5173"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: outfittrack-phpmyadmin
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: "123456"
+      PMA_DB: outfit_track
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+volumes:
+  db_data:

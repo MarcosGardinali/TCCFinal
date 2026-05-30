@@ -1,0 +1,76 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to Azure server
+        env:
+          DEPLOY_PATH: /home/marcosgardinali/tcc-deploy
+          SSH_USER: marcosgardinali
+          SERVER_IP: 172.210.234.104
+        run: |
+          # Criar diretório se não existir
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $SSH_USER@$SERVER_IP "mkdir -p $DEPLOY_PATH"
+          
+          # Copiar arquivos (excluindo pastas desnecessárias)
+          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='node_modules' \
+            --exclude='dist' \
+            --exclude='.env' \
+            --exclude='.env.local' \
+            --exclude='bin' \
+            --exclude='obj' \
+            --exclude='.vs' \
+            --exclude='.vscode' \
+            --exclude='*.user' \
+            --exclude='*.suo' \
+            --exclude='npm-debug.log*' \
+            --exclude='yarn-debug.log*' \
+            --exclude='yarn-error.log*' \
+            ./ $SSH_USER@$SERVER_IP:$DEPLOY_PATH/
+
+      - name: Pull latest images and restart containers
+        env:
+          SSH_USER: marcosgardinali
+          SERVER_IP: 172.210.234.104
+          DEPLOY_PATH: /home/marcosgardinali/tcc-deploy
+        run: |
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $SSH_USER@$SERVER_IP \
+          "cd $DEPLOY_PATH && \
+          docker compose down && \
+          docker compose up --build -d && \
+          echo 'Deploy completed successfully at' && \
+          date"
+
+      - name: Verify deployment
+        env:
+          SSH_USER: marcosgardinali
+          SERVER_IP: 172.210.234.104
+          DEPLOY_PATH: /home/marcosgardinali/tcc-deploy
+        run: |
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $SSH_USER@$SERVER_IP \
+          "cd $DEPLOY_PATH && docker compose ps"
+
+      - name: Log deployment status
+        if: success()
+        run: echo "✅ Deployment to Azure completed successfully"
+
+      - name: Log deployment failure
+        if: failure()
+        run: echo "❌ Deployment to Azure failed"
