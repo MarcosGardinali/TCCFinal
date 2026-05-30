@@ -1,0 +1,116 @@
+@import '@/styles/variables.scss';
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-2;
+  border: 1px solid transparent;
+  border-radius: $border-radius-md;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  user-select: none;
+  
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.4);
+  }
+  
+  &.btn-disabled,
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// --- Sizes ---
+.btn-sm {
+  padding: $spacing-2 $spacing-3;
+  font-size: $font-size-sm;
+}
+.btn-md {
+  padding: $spacing-3 $spacing-5;
+  font-size: $font-size-sm;
+}
+.btn-lg {
+  padding: $spacing-4 $spacing-6;
+  font-size: $font-size-base;
+}
+
+// --- Variants ---
+.btn-primary {
+  background: $primary-color;
+  color: $white;
+  
+  &:hover:not(:disabled) {
+    background: $primary-dark;
+  }
+}
+
+.btn-secondary {
+  background: $secondary-color;
+  color: $white;
+  
+  &:hover:not(:disabled) {
+    background: $secondary-dark;
+  }
+}
+
+.btn-success {
+  background: $success-color;
+  color: $white;
+  &:hover:not(:disabled) { background: darken($success-color, 10%); }
+}
+
+.btn-warning {
+  background: $warning-color;
+  color: $text-primary;
+  &:hover:not(:disabled) { background: darken($warning-color, 10%); }
+}
+
+.btn-danger {
+  background: $error-color;
+  color: $white;
+  &:hover:not(:disabled) { background: darken($error-color, 10%); }
+}
+
+.btn-info {
+  background: $info-color;
+  color: $white;
+  &:hover:not(:disabled) { background: darken($info-color, 10%); }
+}
+
+.btn-outline {
+  background: transparent;
+  color: $primary-color;
+  border-color: $primary-color;
+  
+  &:hover:not(:disabled) {
+    background: rgba($primary-color, 0.1);
+  }
+}
+
+.btn-ghost {
+  background: transparent;
+  color: $text-secondary;
+  border-color: transparent;
+
+  &:hover:not(:disabled) {
+    background: $gray-100;
+    color: $text-primary;
+  }
+}
+
+.btn-link {
+  background: transparent;
+  color: $primary-color;
+  border-color: transparent;
+  text-decoration: underline;
+
+  &:hover:not(:disabled) {
+    color: $primary-dark;
+  }
+}

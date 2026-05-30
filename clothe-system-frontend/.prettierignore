@@ -1,0 +1,5 @@
+# Ignore all files
+**/*
+
+# Prettier is disabled for this project
+# To re-enable, remove this file and update .eslintrc.js

@@ -1,0 +1,124 @@
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-label {
+  font-weight: 500;
+  color: $text-secondary;
+  margin-bottom: $spacing-2;
+  font-size: $font-size-sm;
+
+  .required {
+    color: $error-color;
+    margin-left: $spacing-1;
+  }
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.form-input,
+.form-textarea {
+  padding: $spacing-3;
+  border: 1px solid $border;
+  border-radius: $border-radius-md;
+  font-size: $font-size-base;
+  background-color: $surface;
+  color: $text-primary;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
+  }
+
+  &.error {
+    border-color: $error-color;
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba($error-color, 0.2);
+    }
+  }
+
+  &:disabled {
+    background-color: $gray-100;
+    cursor: not-allowed;
+  }
+
+  &::placeholder {
+    color: $text-muted;
+  }
+}
+
+.has-icon .form-input {
+  padding-right: 2.5rem; // Space for the icon
+}
+
+.icon-slot {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.5;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: normal;
+  color: $text-primary;
+  font-size: $font-size-base;
+}
+
+.checkbox-input {
+  margin-right: $spacing-3;
+  width: 1.15em;
+  height: 1.15em;
+  accent-color: $primary-color;
+}
+
+.error-message {
+  color: $error-color;
+  font-size: $font-size-sm;
+  margin-top: $spacing-2;
+}
+
+.help-text {
+  color: $text-secondary;
+  font-size: $font-size-sm;
+  margin-top: $spacing-2;
+}
+
+.currency-input-wrapper {
+  position: relative;
+
+  .form-input {
+    padding-left: 2.75rem;
+  }
+
+  &::before {
+    content: 'R$';
+    position: absolute;
+    left: $spacing-3;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $text-secondary;
+    font-weight: 500;
+    pointer-events: none;
+  }
+}

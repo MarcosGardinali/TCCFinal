@@ -1,0 +1,92 @@
+@import '@/styles/variables.scss';
+
+.page-container {
+  padding: $spacing-6;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: $spacing-6;
+  gap: $spacing-4;
+}
+
+.header-content {
+  flex: 1;
+}
+
+.page-title {
+  font-size: $font-size-3xl;
+  font-weight: 700;
+  color: $gray-900;
+  margin-bottom: $spacing-2;
+}
+
+.page-subtitle {
+  color: $gray-600;
+  font-size: $font-size-lg;
+}
+
+.header-actions {
+  display: flex;
+  gap: $spacing-3;
+}
+
+.product-name {
+  font-weight: 500;
+  color: $gray-900;
+}
+
+.stock-quantity {
+  font-weight: 500;
+  padding: $spacing-1 $spacing-2;
+  border-radius: $border-radius;
+  font-size: $font-size-sm;
+
+  &.stock-empty {
+    background: rgba($error-color, 0.1);
+    color: $error-color;
+  }
+
+  &.stock-low {
+    background: rgba($warning-color, 0.1);
+    color: $warning-color;
+  }
+
+  &.stock-normal {
+    background: rgba($success-color, 0.1);
+    color: $success-color;
+  }
+}
+
+.status-badge {
+  padding: $spacing-1 $spacing-3;
+  border-radius: $border-radius-full;
+  font-weight: 500;
+  font-size: $font-size-xs;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  &.status-active {
+    background: rgba($success-color, 0.1);
+    color: $success-color;
+  }
+
+  &.status-inactive {
+    background: rgba($error-color, 0.1);
+    color: $error-color;
+  }
+
+  &.status-unknown {
+    background: rgba($gray-500, 0.1);
+    color: $gray-500;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

@@ -1,0 +1,211 @@
+.dashboard {
+  padding: $spacing-6;
+}
+
+.dashboard-header {
+  margin-bottom: $spacing-6;
+}
+
+.dashboard-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: $text-primary;
+  margin-bottom: $spacing-1;
+}
+
+.dashboard-subtitle {
+  color: $text-secondary;
+  font-size: $font-size-lg;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: $spacing-6;
+  margin-bottom: $spacing-6;
+}
+
+.stat-card {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $border-radius-xl;
+  padding: $spacing-6;
+  display: flex;
+  align-items: center;
+  gap: $spacing-5;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: $shadow-md;
+  }
+}
+
+.stat-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: $white;
+  flex-shrink: 0;
+
+  .orders & { background-color: $primary-color; }
+  .customers & { background-color: $secondary-color; }
+  .products & { background-color: $success-color; }
+  .revenue & { background-color: $warning-color; }
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: $text-primary;
+}
+
+.stat-label {
+  font-size: $font-size-sm;
+  color: $text-secondary;
+}
+
+.stat-change {
+  font-size: $font-size-xs;
+  font-weight: 500;
+
+  &.positive { color: $success-color; }
+  &.negative { color: $error-color; }
+  &.neutral { color: $text-muted; }
+}
+
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-6;
+}
+
+.dashboard-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-6;
+}
+
+.chart-card, .map-card, .actions-card, .activity-card {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $border-radius-xl;
+  box-shadow: $shadow-sm;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: $spacing-4 $spacing-5;
+  border-bottom: 1px solid $border;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-title {
+  font-size: $font-size-lg;
+  font-weight: 600;
+  color: $text-primary;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+}
+
+.card-actions .customer-count {
+  font-size: $font-size-sm;
+  color: $text-secondary;
+}
+
+.card-content {
+  padding: $spacing-5;
+}
+
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: $spacing-4;
+}
+
+.action-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-4;
+  padding: $spacing-3;
+  border-radius: $border-radius-md;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background: $gray-50;
+  }
+}
+
+.action-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: $white;
+  flex-shrink: 0;
+
+  &.customers { background: $primary-color; }
+  &.products { background: $success-color; }
+  &.orders { background: $secondary-color; }
+}
+
+.action-title {
+  font-weight: 500;
+  color: $text-primary;
+  margin: 0;
+}
+
+.action-description {
+  font-size: $font-size-sm;
+  color: $text-secondary;
+  margin: 0;
+}
+
+.loading-text {
+  color: $text-muted;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+// Responsive
+@media (max-width: 1024px) {
+  .dashboard-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .stats-grid, .actions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-title {
+    font-size: 2rem;
+  }
+
+  .stat-card {
+    flex-direction: column;
+    text-align: center;
+  }
+}

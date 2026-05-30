@@ -1,0 +1,143 @@
+@import '@/styles/variables.scss';
+
+.product-form {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: $spacing-6;
+}
+
+.form-section {
+  background: white;
+  border-radius: 24px;
+  padding: $spacing-8;
+  margin-bottom: $spacing-6;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: $spacing-4;
+  margin-bottom: $spacing-6;
+  padding-bottom: $spacing-4;
+  border-bottom: 1px solid $border;
+}
+
+.section-icon {
+  width: 60px;
+  height: 60px;
+  background: $primary-color;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  box-shadow: 0 8px 16px rgba($primary-color, 0.2);
+}
+
+.section-info {
+  flex: 1;
+}
+
+.section-title {
+  font-size: $font-size-xl;
+  font-weight: 700;
+  color: $text-primary;
+  margin: 0 0 $spacing-1 0;
+}
+
+.section-subtitle {
+  font-size: $font-size-sm;
+  color: $text-secondary;
+  margin: 0;
+  font-weight: 500;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: $spacing-5;
+}
+
+.form-row {
+  margin-top: $spacing-5;
+}
+
+.form-actions {
+  background: white;
+  border-radius: 24px;
+  padding: $spacing-6;
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-4;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .product-form {
+    padding: $spacing-4;
+  }
+
+  .form-section {
+    padding: $spacing-6;
+    border-radius: 16px;
+  }
+
+  .section-header {
+    flex-direction: column;
+    text-align: center;
+    gap: $spacing-3;
+  }
+
+  .section-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: $spacing-4;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    gap: $spacing-3;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .product-form {
+    padding: $spacing-3;
+  }
+
+  .form-section {
+    padding: $spacing-4;
+    margin-bottom: $spacing-4;
+  }
+
+  .section-header {
+    margin-bottom: $spacing-4;
+    padding-bottom: $spacing-3;
+  }
+}

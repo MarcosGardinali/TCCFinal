@@ -1,0 +1,345 @@
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+}
+
+// Left Side - Branding
+.auth-branding {
+  flex: 1;
+  background-color: $primary-color;
+  color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-10;
+  position: relative;
+  overflow: hidden;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}
+
+.lottie-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150%;
+  height: 150%;
+  transform: translate(-50%, -50%);
+  opacity: 0.1;
+  z-index: 1;
+}
+
+.branding-content {
+  text-align: center;
+  z-index: 2;
+  max-width: 450px;
+}
+
+.logo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: $spacing-6;
+}
+
+.logo-image {
+  width: 80px;
+  margin-bottom: $spacing-4;
+}
+
+.brand-name {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.tagline {
+  font-size: 1.25rem;
+  opacity: 0.9;
+}
+
+// Right Side - Form
+.auth-form-section {
+  flex: 0 0 45%;
+  background: $surface;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-8;
+
+  @media (max-width: 1024px) {
+    flex: 1;
+  }
+}
+
+.form-container {
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: $spacing-8;
+}
+
+.form-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: $spacing-2;
+}
+
+.form-subtitle {
+  color: $text-secondary;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-5;
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: $font-size-sm;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  cursor: pointer;
+  color: $text-secondary;
+
+  input[type="checkbox"] {
+    accent-color: $primary-color;
+  }
+}
+
+.forgot-link {
+  color: $primary-color;
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.form-footer {
+  margin-top: $spacing-6;
+  text-align: center;
+  font-size: $font-size-sm;
+  color: $text-secondary;
+}
+
+.register-link {
+  color: $primary-color;
+  text-decoration: none;
+  font-weight: 600;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.icon-slot {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.password-toggle {
+  background: none;
+  border: none;
+  color: $text-secondary;
+  cursor: pointer;
+  padding: 0;
+
+  &:hover {
+    color: $text-primary;
+  }
+}
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+}
+
+// Left Side - Branding
+.auth-branding {
+  flex: 1;
+  background-color: $primary-color;
+  color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-10;
+  position: relative;
+  overflow: hidden;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}
+
+.lottie-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150%;
+  height: 150%;
+  transform: translate(-50%, -50%);
+  opacity: 0.1;
+  z-index: 1;
+}
+
+.branding-content {
+  text-align: center;
+  z-index: 2;
+  max-width: 450px;
+}
+
+.logo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: $spacing-6;
+}
+
+.logo-image {
+  width: 80px;
+  margin-bottom: $spacing-4;
+}
+
+.brand-name {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.tagline {
+  font-size: 1.25rem;
+  opacity: 0.9;
+}
+
+// Right Side - Form
+.auth-form-section {
+  flex: 0 0 45%;
+  background: $surface;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-8;
+
+  @media (max-width: 1024px) {
+    flex: 1;
+  }
+}
+
+.form-container {
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: $spacing-8;
+}
+
+.form-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: $spacing-2;
+}
+
+.form-subtitle {
+  color: $text-secondary;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-5;
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: $font-size-sm;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  cursor: pointer;
+  color: $text-secondary;
+
+  input[type="checkbox"] {
+    accent-color: $primary-color;
+  }
+}
+
+.forgot-link {
+  color: $primary-color;
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.form-footer {
+  margin-top: $spacing-6;
+  text-align: center;
+  font-size: $font-size-sm;
+  color: $text-secondary;
+}
+
+.register-link {
+  color: $primary-color;
+  text-decoration: none;
+  font-weight: 600;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.password-toggle {
+  background: none;
+  border: none;
+  color: $text-secondary;
+  cursor: pointer;
+  padding: 0;
+
+  &:hover {
+    color: $text-primary;
+  }
+}
+
+.brand-description {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

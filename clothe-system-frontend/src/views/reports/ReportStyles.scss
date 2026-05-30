@@ -1,0 +1,236 @@
+// Shared styles for all report views
+.customers-report-view,
+.products-report-view,
+.orders-report-view,
+.sales-report-view {
+  padding: $spacing-6;
+}
+
+.page-header {
+  margin-bottom: $spacing-6;
+  padding-bottom: $spacing-5;
+  border-bottom: 1px solid $border;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: $text-primary;
+}
+
+.page-subtitle {
+  color: $text-secondary;
+  font-size: $font-size-base;
+  margin-top: $spacing-1;
+}
+
+.header-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-3;
+}
+
+// Summary Cards
+.summary-cards-customer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-5;
+  margin-bottom: $spacing-6;
+}
+
+.summary-cards-product {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-5;
+  margin-bottom: $spacing-6;
+}
+
+.summary-cards-order {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-5;
+  margin-bottom: $spacing-6;
+}
+
+.summary-cards-sale {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-5;
+  margin-bottom: $spacing-6;
+}
+
+.summary-card {
+  background: $surface;
+  border-radius: $border-radius-lg;
+  padding: $spacing-5;
+  border: 1px solid $border;
+  display: flex;
+  align-items: center;
+  gap: $spacing-4;
+}
+
+.card-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: $white;
+  flex-shrink: 0;
+
+  &.customers { background-color: $primary-color; }
+  &.products { background-color: $success-color; }
+  &.orders { background-color: $secondary-color; }
+  &.sales { background-color: $warning-color; }
+  &.active { background-color: $success-color; }
+  &.location { background-color: $primary-light; }
+  &.age { background-color: $secondary-light; }
+  &.stock { background-color: $warning-color; }
+  &.revenue { background-color: $primary-color; }
+}
+
+.card-value {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: $text-primary;
+}
+
+.card-label {
+  font-size: $font-size-sm;
+  color: $text-secondary;
+}
+
+.card-change {
+  font-size: $font-size-xs;
+  font-weight: 500;
+  &.positive { color: $success-color; }
+  &.negative { color: $error-color; }
+  &.neutral { color: $text-muted; }
+}
+
+// Charts Section
+.charts-section-customer {
+  width: 100%;
+}
+
+.charts-section-order {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $spacing-5
+}
+
+.chart-card {
+  background: $surface;
+  border-radius: $border-radius-lg;
+  border: 1px solid $border;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: $spacing-4;
+  border-bottom: 1px solid $border;
+}
+
+.card-title {
+  font-size: $font-size-lg;
+  font-weight: 600;
+  color: $text-primary;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+}
+
+.card-content {
+  padding: $spacing-5;
+}
+
+// Table Section
+.table-section {
+  background: $surface;
+  border-radius: $border-radius-lg;
+  border: 1px solid $border;
+  overflow: hidden;
+}
+
+.section-header {
+  padding: $spacing-4;
+  border-bottom: 1px solid $border;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section-title {
+  font-size: $font-size-lg;
+  font-weight: 600;
+  color: $text-primary;
+  margin: 0;
+}
+
+// Customer specific styles
+.customer-info {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+}
+
+.customer-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: $primary-color;
+  color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: $font-size-sm;
+}
+
+.customer-name {
+  font-weight: 500;
+  color: $text-primary;
+}
+
+.customer-cpf {
+  font-size: $font-size-xs;
+  color: $text-secondary;
+}
+
+.orders-badge {
+  background-color: $primary-color;
+  color: white;
+  padding: 4px 8px;
+  border-radius: $border-radius-full;
+  font-size: $font-size-xs;
+  font-weight: 500;
+}
+
+// Responsive
+@media (max-width: 992px) {
+  .charts-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .customers-report-view,
+  .products-report-view,
+  .orders-report-view,
+  .sales-report-view {
+    padding: $spacing-4;
+  }
+  
+  .page-header {
+    flex-direction: column;
+    gap: $spacing-4;
+    text-align: center;
+  }
+  
+  .summary-cards {
+    grid-template-columns: 1fr;
+  }
+}

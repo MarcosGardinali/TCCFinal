@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.10" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="9.0.6" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\OutfitTrack.Application\OutfitTrack.Application.csproj" />
+		<ProjectReference Include="..\OutfitTrack.Domain\OutfitTrack.Domain.csproj" />
+		<ProjectReference Include="..\OutfitTrack.Infrastructure\OutfitTrack.Infrastructure.csproj" />
+	</ItemGroup>
+
+</Project>

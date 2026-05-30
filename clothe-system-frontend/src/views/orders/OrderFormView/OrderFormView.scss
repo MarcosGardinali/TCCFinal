@@ -1,0 +1,43 @@
+.order-form-view {
+  padding: $spacing-6;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto $spacing-6 auto;
+  padding-bottom: $spacing-5;
+  border-bottom: 1px solid $border;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: $text-primary;
+}
+
+.page-subtitle {
+  color: $text-secondary;
+  margin-top: $spacing-1;
+}
+
+.header-actions {
+  display: flex;
+  gap: $spacing-3;
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .order-form-view {
+    padding: $spacing-4;
+  }
+
+  .page-header {
+    flex-direction: column;
+    gap: $spacing-4;
+    text-align: center;
+    margin-bottom: $spacing-5;
+  }
+}
