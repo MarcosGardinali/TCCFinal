@@ -86,5 +86,17 @@ export const dashboardService = {
       console.error('Erro ao buscar clientes com pedidos ativos:', error)
       return { success: false, error: error.message }
     }
+  },
+  // Buscar todos os dados do dashboard em uma única requisição (mês atual)
+  async getDashboardAll() {
+    try {
+      const response = await axiosInstance.get('/dashboard')
+      // Normalize response shape: some serializers use `result` or `Result`
+      const payload = response?.result ?? response?.Result ?? response
+      return { success: true, data: payload }
+    } catch (error) {
+      console.error('Erro ao buscar dados completos do dashboard:', error)
+      return { success: false, error: error.message }
+    }
   }
 }

@@ -23,11 +23,11 @@
         />
 
         <BaseInput
-          v-model="form.name"
+          v-model="form.description"
           label="Nome"
           type="text"
           placeholder="Nome do produto"
-          :error="errors.name"
+          :error="errors.description"
           required
         />
 
@@ -38,18 +38,6 @@
           placeholder="0,00"
           :error="errors.price"
           required
-        />
-      </div>
-
-      <div class="form-row">
-        <BaseInput
-          v-model="form.description"
-          label="Descrição"
-          type="textarea"
-          placeholder="Descrição detalhada do produto"
-          :error="errors.description"
-          :rows="4"
-          full-width
         />
       </div>
     </div>
@@ -101,7 +89,6 @@ export default {
     return {
       form: {
         code: '',
-        name: '',
         description: '',
         price: '',
       },
@@ -116,7 +103,6 @@ export default {
     schema() {
       return yup.object({
         code: yup.string().required('Código é obrigatório'),
-        name: yup.string().required('Nome é obrigatório'),
         description: yup.string(),
         price: yup.string()
           .required('Preço é obrigatório')
@@ -136,7 +122,6 @@ export default {
 
           this.form = {
             code: product.code || '',
-            name: product.description || product.name || '', // Usar description como nome
             description: product.description || '',
             price: product.price ? Math.round(product.price * 100).toString() : '', // Converter para centavos
           }
@@ -169,7 +154,6 @@ export default {
 
       const productData = {
         code: this.form.code,
-        name: this.form.name,
         description: this.form.description || null,
         price: parseFloat(this.form.price) / 100, // Converte centavos para reais
       }

@@ -213,101 +213,48 @@ export default {
     }
   },
   async mounted() {
-    await Promise.all([
-      this.loadStats(),
-      this.generateChartData(),
-      this.loadCustomersWithOpenOrders()
-    ])
+    await this.loadDashboard()
   },
   methods: {
-    async loadCustomersWithOpenOrders() {
+    async loadDashboard() {
+      this.loading.stats = true
+      this.loading.chart = true
       this.loading.customers = true
       try {
-        const result = await dashboardService.getCustomersWithActiveOrders()
-        if (result.success) {
-          this.customersWithOpenOrdersList = result.data || []
+        const res = await dashboardService.getDashboardAll()
+        console.log('Dashboard response:', res)
+        if (res.success && res.data) {
+          const data = res.data
+          console.log('Dashboard data:', data)
+
+          // Stats
+          const metrics = data.orderMetrics || {}
+          this.stats.orders = metrics.totalOrders || 0
+          this.stats.revenue = this.formatCurrency(metrics.totalRevenue || 0)
+          this.stats.customers = (data.customerMetrics && data.customerMetrics.totalCustomers) || 0
+          this.stats.products = data.totalProducts || 0
+
+          // Chart data (orders per day)
+          const ordersPerDay = (metrics.ordersPerDay || []).map(item => ({ date: item.date || item.Date, count: item.quantity || item.Quantity }))
+          this.ordersChartData = ordersPerDay
+
+          // Map markers: active orders with customer included
+          this.customersWithOpenOrdersList = data.activeOrders || []
+          console.log('Orders para mapa:', this.customersWithOpenOrdersList)
         } else {
-          this.customersWithOpenOrdersList = []
+          console.error('Response sem sucesso:', res)
+          this.generateFallbackChartData()
         }
       } catch (error) {
-        console.error('Erro ao carregar clientes com pedidos em aberto:', error)
-        this.customersWithOpenOrdersList = []
+        console.error('Erro ao carregar dashboard:', error)
+        this.generateFallbackChartData()
       } finally {
+        this.loading.stats = false
+        this.loading.chart = false
         this.loading.customers = false
       }
     },
-    
-    async loadStats() {
-      this.loading.stats = true
-      try {
-        const [metricsResult, customersResult, productsResult] = await Promise.allSettled([
-          dashboardService.getCompleteMetrics(),
-          dashboardService.getTotalCustomers(),
-          dashboardService.getTotalProducts()
-        ])
 
-        // Processar métricas completas (pedidos e receita)
-        if (metricsResult.status === 'fulfilled' && metricsResult.value.success) {
-          const metrics = metricsResult.value.data
-          this.stats.orders = metrics.totalOrders || 0
-          this.stats.revenue = this.formatCurrency(metrics.totalRevenue || 0)
-        } else {
-          this.stats.orders = '-'
-          this.stats.revenue = 'R$ 0,00'
-        }
-
-        // Processar total de clientes
-        if (customersResult.status === 'fulfilled' && customersResult.value.success) {
-          this.stats.customers = customersResult.value.data || 0
-        } else {
-          this.stats.customers = '-'
-        }
-
-        // Processar total de produtos
-        if (productsResult.status === 'fulfilled' && productsResult.value.success) {
-          this.stats.products = productsResult.value.data || 0
-        } else {
-          this.stats.products = '-'
-        }
-      } catch (error) {
-        console.error('Erro ao carregar estatísticas do dashboard:', error)
-        this.stats = {
-          customers: '-',
-          products: '-',
-          orders: '-',
-          revenue: 'R$ 0,00'
-        }
-      } finally {
-        this.loading.stats = false
-      }
-    },
-
-    async generateChartData() {
-      this.loading.chart = true
-      try {
-        if (!this.dateRange || !Array.isArray(this.dateRange) || this.dateRange.length < 2) {
-          this.generateFallbackChartData()
-          return
-        }
-        
-        const startDate = new Date(this.dateRange[0]).toISOString().split('T')[0]
-        const endDate = new Date(this.dateRange[1]).toISOString().split('T')[0]
-        const result = await dashboardService.getOrdersForChart(startDate, endDate)
-        
-        if (result.success && Array.isArray(result.data) && result.data.length > 0) {
-          const data = this.processOrdersByDateRange(result.data)
-          this.ordersChartData = data
-        } else {
-          this.generateFallbackChartData()
-        }
-      } catch (error) {
-        console.error('Erro ao gerar dados do gráfico:', error)
-        this.generateFallbackChartData()
-      } finally {
-        this.loading.chart = false
-      }
-    },
-    
     generateFallbackChartData() {
       const data = []
       
@@ -336,50 +283,6 @@ export default {
       }
       
       this.ordersChartData = data
-    },
-    
-    processOrdersByDateRange(orders) {
-      const data = []
-      const ordersByDate = new Map()
-      
-      if (!this.dateRange || !Array.isArray(this.dateRange) || this.dateRange.length < 2) {
-        return data
-      }
-      
-      const startDate = new Date(this.dateRange[0])
-      const endDate = new Date(this.dateRange[1])
-      
-      // Inicializar contadores para o período
-      for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-        const dateKey = d.toISOString().split('T')[0]
-        ordersByDate.set(dateKey, 0)
-      }
-      
-      // Contar pedidos por data
-      orders.forEach(order => {
-        const creationDate = order.creationDate || order.CreationDate
-        if (creationDate) {
-          const orderDate = new Date(creationDate).toISOString().split('T')[0]
-          if (ordersByDate.has(orderDate)) {
-            ordersByDate.set(orderDate, ordersByDate.get(orderDate) + 1)
-          }
-        }
-      })
-      
-      // Converter para array
-      for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-        const dateKey = d.toISOString().split('T')[0]
-        data.push({
-          date: new Date(d).toISOString(),
-          count: ordersByDate.get(dateKey) || 0
-        })
-      }
-      
-      return data
-    },
-
-    async updateChartData() {
-      await this.generateChartData()
     },
 
     formatCurrency(value) {
